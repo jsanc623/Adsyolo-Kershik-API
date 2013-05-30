@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 AdsYolo-Kershik
 ===============
 
@@ -24,3 +25,7 @@ you will then be able to install your own built version.
 This project uses the following open source libraries:
 
 * [ActionBarSherlock](https://github.com/JakeWharton/ActionBarSherlock)
+=======
+KershikNew
+==========
+>>>>>>> f411018a3d127a9f1e0bca579528216a869a7fa0
