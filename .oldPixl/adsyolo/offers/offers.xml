@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<music>
+    <song>
+        <id>1</id>
+        <title><![CDATA[Google Play Music]]></title>
+        <artist><![CDATA[Google Inc.]]></artist>
+        <duration>1<![CDATA[0 Min]]></duration>
+        <plays><![CDATA[https://play.google.com/store/apps/details?id=com.google.android.music]]></plays>
+        <thumb_url><![CDATA[http://pixls.me/adsyolo/offerImages/GooglePlay.jpg]]></thumb_url>
+    </song>
+    <song>
+        <id>2</id>
+        <title><![CDATA[Ice Rage]]></title>
+        <artist><![CDATA[Herocraft Ltd.]]></artist>
+        <duration><![CDATA[5 Min]]></duration>
+        <plays><![CDATA[https://play.google.com/store/apps/details?id=com.herocraft.game.icerage]]></plays>
+        <thumb_url><![CDATA[http://pixls.me/adsyolo/offerImages/IceRage.jpg]]></thumb_url>
+    </song>
+    <song>
+        <id>3</id>
+        <title><![CDATA[Songza]]></title>
+        <artist><![CDATA[Songza]]></artist>
+        <duration><![CDATA[5 Min]]></duration>
+        <plays><![CDATA[https://play.google.com/store/apps/details?id=com.ad60.songza]]></plays>
+        <thumb_url><![CDATA[http://pixls.me/adsyolo/offerImages/Songza.jpg]]></thumb_url>
+    </song>
+    <song>
+        <id>4</id>
+        <title><![CDATA[Drag Racing]]></title>
+        <artist><![CDATA[Creative Mobile]]></artist>
+        <duration><![CDATA[5 Min]]></duration>
+        <plays><![CDATA[https://play.google.com/store/apps/details?id=com.creativemobile.DragRacing]]></plays>
+        <thumb_url><![CDATA[http://pixls.me/adsyolo/offerImages/DragRacing.jpg]]></thumb_url>
+    </song>
+</music>
