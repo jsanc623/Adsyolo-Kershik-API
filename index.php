@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file allows your recess application to work without .htaccess
  * by using the following url: http://www.somehost.com/index.php/path/to/your/app

@@ -20,7 +20,7 @@ class KershikHomeController extends Controller {
 	 * !Route DELETE, /
 	 */
 	function onPostRoot(){
-		$this->Fuck = "You";
+		$this->Uhm = "No thank you.";
 	}
 	
 	/**

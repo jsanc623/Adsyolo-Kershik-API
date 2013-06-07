@@ -14,7 +14,7 @@ class KershikAuthController extends Controller {
 	}
 	
 	/**
-	 * !Route GET, /auth/login/$username/$password
+	 * !Route POST, /auth/login/$username/$password
 	 */
 	function login($username, $password){
 		$this->RequestPath = "/auth";
@@ -22,13 +22,11 @@ class KershikAuthController extends Controller {
 			$this->LoginStatus = "Fail";
 			$this->FailureReason = "Incorrect username or password.";
 		} else {
-			$salt = APPLICATION_SALT;
-			$secret = APPLICATION_SALT . "<+r+>" . strrev(APPLICATION_SALT);
-			$password_hash = hash_hmac("whirlpool", 
-									   hash_hmac("sha512", $username . $password . $salt, $secret) . $salt, 
-									   $secret);
+			$Auth = new Auth();
+			$password_hash = $Auth->getHash($username, $password);
 			$this->username = $username;
 			$this->password = $password_hash;
+			# TODO: Match against database and output fail or pass JSON
 		}
 	}
 	
