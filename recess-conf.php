@@ -18,8 +18,6 @@
 // RecessConf::DEVELOPMENT or RecessConf::PRODUCTION
 RecessConf::$mode = RecessConf::DEVELOPMENT; 
 
-define('APPLICATION_SALT', '#$k3rs4ik$#');
-
 RecessConf::$applications 
 	= array(	'recess.apps.tools.RecessToolsApplication',
 				'adsyolo.KershikApplication',

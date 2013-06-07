@@ -27,8 +27,8 @@ class KershikAccountController extends Controller {
 		
 	}
 	
-		getAccount [username, password]
+		/**getAccount [username, password]
 	changePass [username, oldpassword, newpassword, newpasswordverify]
-	getMinutesWon [username]
+	getMinutesWon [username]*/
 }
 ?>

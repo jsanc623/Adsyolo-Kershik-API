@@ -1,5 +1,6 @@
 <?php
 Library::import('recess.framework.controllers.Controller');
+Library::import('adsyolo.models.Auth');
 
 /**
  * !RespondsWith Json
@@ -14,7 +15,7 @@ class KershikAuthController extends Controller {
 	}
 	
 	/**
-	 * !Route POST, /auth/login/$username/$password
+	 * !Route GET, /auth/login/$username/$password
 	 */
 	function login($username, $password){
 		$this->RequestPath = "/auth";

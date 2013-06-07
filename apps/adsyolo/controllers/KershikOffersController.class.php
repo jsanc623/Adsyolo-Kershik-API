@@ -12,5 +12,11 @@ class KershikOffersController extends Controller {
 	function index() {
 		$this->RequestPath = '/offers';
 	}
+	
+	/**
+	 * 	getNewOffers [username]
+	getCompletedOffers [username]
+	getSingleOffer [username]
+	 */
 }
 ?>
