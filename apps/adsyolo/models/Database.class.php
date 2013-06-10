@@ -1,7 +1,7 @@
 <?php
 require_once('database.info.php');
 
-class Auth extends Model {
+class Database extends Model {
 	function getHash($username, $password){
 		$salt = APPLICATION_SALT;
 		$secret = APPLICATION_SALT . "<+r+>" . strrev(APPLICATION_SALT);
