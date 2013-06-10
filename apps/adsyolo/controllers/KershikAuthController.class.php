@@ -44,6 +44,13 @@ class KershikAuthController extends Controller {
 	}
 	
 	/**
+	 * !Route POST, /auth/register/$username/$password/$first_name/$last_name
+	 */
+	function register($username, $password, $first_name, $last_name){
+		
+	}
+	
+	/**
 	 * !Route POST, /auth/renewsession/$username/$key
 	 */
 	function renewsession($username, $key){
