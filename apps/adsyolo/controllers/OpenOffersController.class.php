@@ -3,7 +3,7 @@ Library::import('adsyolo.models.OpenOffers');
 Library::import('recess.framework.forms.ModelForm');
 
 /**
- * !RespondsWith Layouts
+ * !RespondsWith Json
  * !Prefix openOffers/
  */
 class OpenOffersController extends Controller {
@@ -45,7 +45,8 @@ class OpenOffersController extends Controller {
 	
 	/** !Route POST */
 	function insert() {
-		try {
+		return 0;
+		try { 
 			$this->openOffers->insert();
 			return $this->created($this->urlTo('details', $this->openOffers->id));		
 		} catch(Exception $exception) {
@@ -55,6 +56,7 @@ class OpenOffersController extends Controller {
 	
 	/** !Route GET, $id/edit */
 	function editForm($id) {
+		return 0;
 		$this->openOffers->id = $id;
 		if($this->openOffers->exists()) {
 			$this->_form->to(Methods::PUT, $this->urlTo('update', $id));
@@ -65,6 +67,7 @@ class OpenOffersController extends Controller {
 	
 	/** !Route PUT, $id */
 	function update($id) {
+		return 0;
 		$oldOpenOffers = new OpenOffers($id);
 		if($oldOpenOffers->exists()) {
 			$oldOpenOffers->copy($this->openOffers)->save();
@@ -76,6 +79,7 @@ class OpenOffersController extends Controller {
 	
 	/** !Route DELETE, $id */
 	function delete($id) {
+		return 0;
 		$this->openOffers->id = $id;
 		if($this->openOffers->delete()) {
 			return $this->forwardOk($this->urlTo('index'));

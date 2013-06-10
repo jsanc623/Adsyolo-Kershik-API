@@ -3,7 +3,7 @@ Library::import('adsyolo.models.Users');
 Library::import('recess.framework.forms.ModelForm');
 
 /**
- * !RespondsWith Layouts
+ * !RespondsWith Json
  * !Prefix users/
  */
 class UsersController extends Controller {
@@ -55,6 +55,7 @@ class UsersController extends Controller {
 	
 	/** !Route GET, $id/edit */
 	function editForm($id) {
+		return 0;
 		$this->users->id = $id;
 		if($this->users->exists()) {
 			$this->_form->to(Methods::PUT, $this->urlTo('update', $id));
@@ -76,6 +77,7 @@ class UsersController extends Controller {
 	
 	/** !Route DELETE, $id */
 	function delete($id) {
+		return 0;
 		$this->users->id = $id;
 		if($this->users->delete()) {
 			return $this->forwardOk($this->urlTo('index'));

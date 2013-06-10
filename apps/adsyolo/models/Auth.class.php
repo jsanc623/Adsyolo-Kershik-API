@@ -8,6 +8,10 @@ class Auth extends Model {
 		$password = $username . $password . $salt;
         return hash_hmac("whirlpool", hash_hmac("sha512", $password, $secret) . $salt,  $secret);
 	}
+	
+	function getApplicationSalt(){
+		return APPLICATION_SALT;
+	}
 }
 ?>
 

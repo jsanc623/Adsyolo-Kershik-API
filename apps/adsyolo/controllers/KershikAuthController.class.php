@@ -23,12 +23,18 @@ class KershikAuthController extends Controller {
 			$this->LoginStatus = "Fail";
 			$this->FailureReason = "Incorrect username or password.";
 		} else {
-			$Auth = new Auth();
-			$password_hash = $Auth->getHash($username, $password);
 			$this->username = $username;
 			$this->password = $password_hash;
 			# TODO: Match against database and output fail or pass JSON
 		}
+	}
+	
+	/**
+	 * !Route GET, /auth/auxiliary/deploy/decoy
+	 */
+	function auxDeploySalt(){
+		$Auth = new Auth();
+		$this->decoy = $Auth->getApplicationSalt();
 	}
 	
 	/**
@@ -47,19 +53,9 @@ class KershikAuthController extends Controller {
 	 * !Route POST, /auth/register/$username/$password/$first_name/$last_name
 	 */
 	function register($username, $password, $first_name, $last_name){
+		$Auth = new Auth();
+		$password_hash = $Auth->getHash($username, $password);
 		
-	}
-	
-	/**
-	 * !Route POST, /auth/renewsession/$username/$key
-	 */
-	function renewsession($username, $key){
-		if(empty($username) || empty($key)){
-			$this->LogoutStatus = "Fail";
-			$this->FailureReason = "Session expired.";
-		} else {
-			# TODO: Renew session code
-		}
 	}
 }
 ?>
