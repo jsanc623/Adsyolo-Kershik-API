@@ -7,27 +7,28 @@ Layout::input($scripts, 'Block', new HtmlBlock());
 <html>
 	<head>
 		<!-- Blue Print -->
-		<?php echo Html::css('blueprint/screen', 'screen'); ?>
-		<?php echo Html::css('blueprint/print', 'print'); ?>
+		<?php echo str_replace("/index.php", "", Html::css('blueprint/screen', 'screen')); ?>
+		<?php echo str_replace("/index.php", "", Html::css('blueprint/print', 'print')); ?>
 		<!--[if IE]>
-			<?php echo Html::css('blueprint/ie', 'screen'); ?>
+			<?php echo str_replace("/index.php", "", Html::css('blueprint/ie', 'screen')); ?>
 		<![endif]-->
-		<?php echo Html::css('recess'); ?>
+		<?php echo str_replace("/index.php", "", Html::css('recess')); ?>
 		 
 		<?php
-		echo Html::css('SyntaxHighlighter');
-		echo Html::js('shCore');
-		echo Html::js('shBrushPhp');
-		echo Html::js('shBrushSql'); 
+		echo str_replace("/index.php", "", Html::css('SyntaxHighlighter'));
+		echo str_replace("/index.php", "", Html::js('shCore'));
+		echo str_replace("/index.php", "", Html::js('shBrushPhp'));
+		echo str_replace("/index.php", "", Html::js('shBrushSql')); 
 		?>
 		<script language="javascript">
 			window.onload = function() {
-				dp.SyntaxHighlighter.ClipboardSwf = '<?php echo Url::base('flash/clipboard.swf') ?>'
+				dp.SyntaxHighlighter.ClipboardSwf = '<?php echo str_replace("/index.php", "", Url::base('flash/clipboard.swf')) ?>'
 				dp.SyntaxHighlighter.HighlightAll('code');
 			}
 		</script>
-		<?php echo $scripts ?>
+		<?php echo $scripts; ?>
 		<title>Recess Tools!<?php echo $title; ?></title>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"></script>
 	</head>
 	<body>
 	<div class="container">

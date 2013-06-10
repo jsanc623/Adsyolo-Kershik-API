@@ -39,7 +39,6 @@ class Html extends AbstractHelper {
 				$str = str_replace(array('<', '>', '\'', '"'), array('&lt;', '&gt;', '&#39;', '&quot;'), $str);
 			}
 		}
-
 		return $str;
 	}
 
@@ -133,9 +132,10 @@ class Html extends AbstractHelper {
 				$suffix = (substr($script, -3) !== '.js') ? '.js' : '';
 				$script = url::asset('js/'.$script.$suffix);
 			}
+			str_replace("/index.php", "", $script);
 			$compiled = '<script type="text/javascript" src="'.$script.'"></script>';
 		}
-
+		
 		return $compiled."\n";
 	}
 
