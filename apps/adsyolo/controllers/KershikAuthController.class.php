@@ -43,7 +43,6 @@ class KershikAuthController extends Controller {
 			$this->LoginStatus = "Fail";
 			$this->FailureReason = "Incorrect credentials.";
 		} else {
-			
 			$this->User->username = $username;
 			$this->User->password = $password;
 			
