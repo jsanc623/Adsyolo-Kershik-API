@@ -12,6 +12,16 @@ class Auth extends Model {
 	function getApplicationSalt(){
 		return APPLICATION_SALT;
 	}
+	
+	function generateSessionId(){
+		$date = new DateTime();
+		$datem =  strrev(rand($date->format('mis'), $date->format('dHis')));
+		$randl = rand($date->format('Ym'), $date->format('dHis'));
+		$randr = rand($date->format('mdH'), $date->format('His'));
+		
+		$session_id = $randl . $datem . $randr;
+		return $session_id;
+	}
 }
 ?>
 

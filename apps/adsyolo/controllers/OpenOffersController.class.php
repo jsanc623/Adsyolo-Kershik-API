@@ -36,56 +36,5 @@ class OpenOffersController extends Controller {
 			return $this->forwardNotFound($this->urlTo('index'));
 		}
 	}
-	
-	/** !Route GET, new */
-	function newForm() {
-		$this->_form->to(Methods::POST, $this->urlTo('insert'));
-		return $this->ok('editForm');
-	}
-	
-	/** !Route POST */
-	function insert() {
-		return 0;
-		try { 
-			$this->openOffers->insert();
-			return $this->created($this->urlTo('details', $this->openOffers->id));		
-		} catch(Exception $exception) {
-			return $this->conflict('editForm');
-		}
-	}
-	
-	/** !Route GET, $id/edit */
-	function editForm($id) {
-		return 0;
-		$this->openOffers->id = $id;
-		if($this->openOffers->exists()) {
-			$this->_form->to(Methods::PUT, $this->urlTo('update', $id));
-		} else {
-			return $this->forwardNotFound($this->urlTo('index'), 'OpenOffers does not exist.');
-		}
-	}
-	
-	/** !Route PUT, $id */
-	function update($id) {
-		return 0;
-		$oldOpenOffers = new OpenOffers($id);
-		if($oldOpenOffers->exists()) {
-			$oldOpenOffers->copy($this->openOffers)->save();
-			return $this->forwardOk($this->urlTo('details', $id));
-		} else {
-			return $this->forwardNotFound($this->urlTo('index'), 'OpenOffers does not exist.');
-		}
-	}
-	
-	/** !Route DELETE, $id */
-	function delete($id) {
-		return 0;
-		$this->openOffers->id = $id;
-		if($this->openOffers->delete()) {
-			return $this->forwardOk($this->urlTo('index'));
-		} else {
-			return $this->forwardNotFound($this->urlTo('index'), 'OpenOffers does not exist.');
-		}
-	}
 }
 ?>
