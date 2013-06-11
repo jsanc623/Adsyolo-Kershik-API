@@ -31,38 +31,45 @@ class KershikAuthController extends Controller {
 	}
 	
 	/**
-	 * !Route GET, /auth/login/$username/$password
+	 * !Route GET, /auth/login/$username/$password/$timestamp/$hash
 	 */
-	function login($username, $password){
-		// Max 3 tries in 10 minutes. 
-		// Max 10 tries in 1 hour. 
-		// Max 15 tries in 1 day.
-		// Max 15 tries = administrative Lock 
-		$this->RequestPath = "/auth";
-		if(empty($username) || empty($password)){
+	function login($username, $password, $timestamp, $hash){
+		$this->RequestPath = "/auth/login";
+			
+		// If username/password are empty, just return out.
+		if(empty($username) || empty($password) || empty($timestamp) || empty($hash)){
 			$this->LoginStatus = "Fail";
 			$this->FailureReason = "Incorrect credentials.";
-		} else {
-			$this->User->username = $username;
-			$this->User->password = $password;
+			return;
+		}
+		
+		$hashLocal = $this->Auth->generateHMACHash($username, $timestamp);
+		
+		// Save a 'try' attached to username with request date and time.
+		$this->Auth->AddTry($username, $this->Date->format('Y-m-d H:i:s'));
+		
+		if($hash === $hashLocal){
+			// Check that the user account is not temporarily locked out.
+			if($this->Auth->CheckTries($username) == 'ok'){
+				$this->User->username = $username;
+				$this->User->password = $password;
 			
-			if($this->User->exists() === true){
-				$this->username = $username;
-				$this->timestamp = $this->Date->format('Y-m-d H:i:s');
-				$this->sessionid = $this->Auth->generateSessionId();			
+				if($this->User->exists() === true){
+					$this->username = $username;
+					$this->timestamp = $this->Date->format('Y-m-d H:i:s');
+					$this->sessionid = $this->Auth->generateSessionId();			
+				} else {
+					$this->LoginStatus = "Fail"; 
+					$this->FailureReason = "Incorrect credentials or user does not exist (B).";
+				}
 			} else {
 				$this->LoginStatus = "Fail"; 
-				$this->FailureReason = "Incorrect credentials or user does not exist.";
+				$this->FailureReason = "Login tries exceeded. Account blocked temporarily or permanently.";
 			}
+		} else {
+			$this->LoginStatus = "Fail"; 
+			$this->FailureReason = "Incorrect credentials or user does not exist (A).";
 		}
-	}
-	
-	/**
-	 * !Route GET, /auth/auxiliary/deploy/decoy
-	 */
-	function auxDeploySalt(){
-		$Auth = new Auth();
-		$this->decoy = $this->Auth->getApplicationSalt();
 	}
 	
 	/**
@@ -82,7 +89,7 @@ class KershikAuthController extends Controller {
 	 */
 	function register($username, $password, $first_name, $last_name){
 		$Auth = new Auth();
-		$password_hash = $Auth->getHash($username, $password);
+		$password_hash = $Auth->createHash($username, $password);
 		
 	}
 }
