@@ -21,6 +21,9 @@ class Users extends Model {
 
 	/** !Column String */
 	public $date_created;
+	
+	/** !Column Integer */
+	public $blocked;
 
 }
 ?>
