@@ -57,18 +57,19 @@ class KershikAuthController extends Controller {
 				if($this->User->exists() === true){
 					$this->username = $username;
 					$this->timestamp = $this->Date->format('Y-m-d H:i:s');
-					$this->sessionid = $this->Auth->generateSessionId();			
+					$this->sessionid = $this->Auth->generateSessionId();
+					// store username and session id in database			
 				} else {
 					$this->LoginStatus = "Fail"; 
-					$this->FailureReason = "Incorrect credentials or user does not exist (B).";
+					$this->FailureReason = "Incorrect credentials.";
 				}
 			} else {
 				$this->LoginStatus = "Fail"; 
-				$this->FailureReason = "Login tries exceeded. Account blocked temporarily or permanently.";
+				$this->FailureReason = "Login tries exceeded.";
 			}
 		} else {
 			$this->LoginStatus = "Fail"; 
-			$this->FailureReason = "Incorrect credentials or user does not exist (A).";
+			$this->FailureReason = "Incorrect credentials.";
 		}
 	}
 	
