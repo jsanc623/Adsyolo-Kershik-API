@@ -1,32 +1,44 @@
-<html>
-	<head>
-		<title>Kershik: Coming Soon!</title>
-		<style>
-			body{
-				margin:0;
-				padding:0;
-				background-color:#000;
-				font-family: "Helvetica", Arial, sans-serif, "Comic Sans";
-			}
-			.container{
-				padding-top:5%;
-				text-align:center;
-				color:#F00;
-			}
-		</style>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-	</head>
-	<body>
-		<div class="wrapper">
-			<div class="container">
-				<h2>Kershik</h2>
-			</div><!-- .container -->
-		</div><!-- .wrapper -->
-		
-		<script type="text/javascript">
-		$(".container h2").fadeOut(5000, function(){ 
-			$(this).text("Coming soon...").fadeIn(3500).fadeOut(5000);
-		});
-		</script>
-	</body>
+<? header("Location: /jarvis/"); ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Ohcastra</title>
+	<link rel="stylesheet" href="/css/dev.css">
+	<script type="text/javascript" language="javascript" src="/js/jquery.min.js"></script>
+	<script type="text/javascript" language="javascript">
+	//<[CDATA[
+		function page_move(page_id)
+		{
+			$('#page-frame').attr("src","/include/"+page_id+".html");
+		}
+
+		function template(page_id)
+		{
+			$('#page-frame').attr("src","/"+page_id);
+		}
+	//]]>
+	</script>
+</head>
+<body>
+<div id="wrapper">
+	<div id="page-list">
+		<h2>Template</h2>
+		<ul>
+			<li><a href="javascript:template('javis')">javis</a></li>
+			<li><a href="javascript:template('madmin')">madmin</a></li>
+			<li><a href="javascript:page_move('icon')">madmin-icon</a></li>
+			<li><a href="javascript:template('stilearn')">stilearn</a></li>
+		</ul>
+
+		<h2>Page</h2>
+		<ul>
+			<li><a href="javascript:page_move('main')">main</a></li>
+			<li><a href="javascript:page_move('create_meeting')">create_meeting</a></li>
+			<li><a href="javascript:page_move('progress_meeting')">progress_meeting</a></li>
+		</ul>
+	</div>
+	<iframe id="page-frame"></iframe>
+</div>
+</body>
 </html>
