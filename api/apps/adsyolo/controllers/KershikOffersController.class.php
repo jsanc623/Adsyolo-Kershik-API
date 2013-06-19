@@ -14,10 +14,11 @@ class KershikOffersController extends Controller {
 	}
 	
 	/**
-	 * !Route GET, /offers/get/new/$username
+	 * !Route GET, /offers/get/new/offers/$username
 	 */
 	function getNewOffers($username){
-		
+		$this->offersCount = 0;
+		$this->offers = array();
 	}
 	
 	/**

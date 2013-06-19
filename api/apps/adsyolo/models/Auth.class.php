@@ -59,8 +59,9 @@ class Auth extends Model {
 				$Tries->tries = 1;
 				$Tries->save();
 			}
+			return $Tries->tries;
 		}
-		return $Tries->tries;
+		return 0;
 	}
 	
 	function CheckTries($username){
