@@ -58,7 +58,7 @@ class KershikAuthController extends Controller {
 					$this->username = $username;
 					$this->timestamp = $this->Date->format('Y-m-d H:i:s');
 					$this->sessionid = $this->Auth->generateSessionId();
-					// store username and session id in database			
+					// TODO: store username, timestamp and session id in database
 				} else {
 					$this->LoginStatus = "Fail"; 
 					$this->FailureReason = "Incorrect credentials.";
@@ -89,9 +89,24 @@ class KershikAuthController extends Controller {
 	 * !Route POST, /auth/register/$username/$password/$first_name/$last_name
 	 */
 	function register($username, $password, $first_name, $last_name){
-		$Auth = new Auth();
-		$password_hash = $Auth->createHash($username, $password);
-		
+		if(!empty($username) && !empty($password) && !empty($first_name) && !empty($last_name)){
+			$this->User->username = $username;
+			$this->User->all();
+			$this->User->like("username", $username); 
+			if($this->User->exists()){
+				$this->status = "New user created.";
+				$this->id = $this->User->id;
+			} else {
+				$this->User->password = $this->Auth->createHash($username, $password);
+				$this->User->first_name = $first_name;
+				$this->User->last_name = $last_name;
+				$this->User->date_created = $this->Date->format('Y-m-d H:i:s');
+				$this->User->blocked = 1;
+				$this->User->save();
+				$this->status = "New user created.";
+				$this->id = $this->User->id;
+			}
+		}
 	}
 }
 ?>

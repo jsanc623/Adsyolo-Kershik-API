@@ -14,9 +14,24 @@ class KershikOffersController extends Controller {
 	}
 	
 	/**
-	 * 	getNewOffers [username]
-	getCompletedOffers [username]
-	getSingleOffer [username]
+	 * !Route GET, /offers/get/new/$username
 	 */
+	function getNewOffers($username){
+		
+	}
+	
+	/**
+	 * !Route GET, /offers/get/completed/$username
+	 */
+	function getCompletedOffers($username){
+		
+	}
+	
+	/**
+	 * !Route GET, /offers/get/single/$username
+	 */
+	function getSingleOffer($username){
+		
+	}
 }
 ?>

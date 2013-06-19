@@ -27,11 +27,12 @@ class KershikHomeController extends Controller {
 	 * !Route GET, /status
 	 */
 	function getAPIStatus(){
-		$this->Status = "Ok";
-		$this->Health = "Good";
-		$this->Heartbeat = "Good";
-		$this->Sanity = "Passed";
-		$this->Uptime = "99.5%";
+		$this->Status    = "Green";
+		$this->Health    = "Green";
+		$this->Heartbeat = "Green";
+		$this->Sanity    = "Green";
+		$this->Uptime    = "Green";
+		# TODO: Actual status
 	}
 }
 ?>
