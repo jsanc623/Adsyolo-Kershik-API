@@ -108,5 +108,14 @@ class KershikAuthController extends Controller {
 			}
 		}
 	}
+	
+	/**
+	 * !Route POST, /auth/genhash
+	 */
+	function getHash(){
+		$username = $_POST['username'];
+		$password = $_POST['password'];
+		$this->hash = $this->Auth->createHash($username, $password);
+	}
 }
 ?>

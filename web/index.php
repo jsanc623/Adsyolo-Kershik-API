@@ -97,7 +97,6 @@
       <form action="./" method="post">
       
         <h4 id="welcomeBack"></h4>
-        <br />
         
         <div class="login-fields">
                           
@@ -124,7 +123,7 @@
           </span>
           
           <br />
-          <button class="button btn btn-large btn-primary btn-madmin">Sign In</button>
+          <a href="#" class="button btn btn-large btn-primary btn-madmin">Sign In</a>
           
         </div><!-- /.login-actions -->
       
@@ -158,47 +157,81 @@
     <!-- 3: if jQuery was loaded in compatibility mode, where you have to use the
             long 'jQuery(...)' instead of '$(...)' (Wordpress does this), revert
             to to "classic" jQuery behavior -->
-    <script>if ($ === undefined) $ = jQuery</script>
+    <script>if ($ === undefined) $ = jQuery</script> 
     <script type="text/javascript">
-    	var langWelcomeBack = {
+    	$(".btn-madmin").on("click", function(){
+    		var username = $("").val();
+    		var password = $("").val();
+    		var timestamp = Math.round((new Date()).getTime() / 1000);
+    		var identifier = Math.round((new Date()).getTime() * 3218);
+    		var clientsalt = Math.round((new Date()).getTime() * 3219);
+    		
+    		
+    		var getHashUrl = "http://api.kershik.com/kershik/auth/genhash";
+    		$.ajax({
+			  type: "POST",
+			  url: getHashUrl,
+			  data: { username: username, password: password, timestamp: timestamp, identifier: identifier, clientsalt: clientsalt }
+			}).done(function( msg ) {
+			  console.log( "Your hash: " + msg );
+			});
+    	});
+    
+    
+		var LanguageRotator = {
 			translations: [
 				{ "English"     : "Welcome back"           },
 				{ "German"      : "Willkommen zurück"      },
 				{ "Polish"      : "Witamy z powrotem"      },
+				{ "English"     : "Welcome back"           },
 				{ "Spanish"     : "Bienvenido de nuevo"    },
 				{ "Turkish"     : "Tekrar hoş geldiniz"    },
 				{ "Swahili"     : "Karibu tena"            },
+				{ "English"     : "Welcome back"           },
 				{ "Portuguese"  : "Bem-vindo de volta"     },
 				{ "Hungarian"   : "Üdvözöljük"             },
 				{ "Greek"       : "Καλώς ήρθατε και πάλι"  },
 				{ "Filipino"    : "Maligayang pagbalik"    },
+				{ "English"     : "Welcome back"           },
 				{ "Croatian"    : "Dobrodošli natrag"      },
 				{ "Belarusian"  : "Сардэчна запрашаем"     },
 				{ "Bulgarian"   : "Добре дошли обратно"    },
 				{ "Czech"       : "Vítejte zpět"           },
+				{ "English"     : "Welcome back"           },
 				{ "Finnish"     : "Tervetuloa takaisin"    },
 				{ "Haitian"     : "Byenveni"               },
 				{ "Indonesian"  : "Selamat datang kembali" },
 				{ "Malay"       : "Selamat kembali"        },
+				{ "English"     : "Welcome back"           },
 				{ "Romanian"    : "Bine ai revenit"        },
 				{ "Swedish"     : "Välkommen tillbaka"     }, 
 				{ "Russian"     : "Добро пожаловать"       },
 				{ "Norwegian"   : "Velkommen tilbake"      },
+				{ "English"     : "Welcome back"           },
 				{ "Italian"     : "Bentornato"             },
 				{ "French"      : "Bienvenue à nouveau"    },
 				{ "Danish"      : "Velkommen tilbage"      },
 				{ "Catalan"     : "Benvingut de nou"       },
+				{ "English"     : "Welcome back"           },
 				{ "Dutch"       : "Welkom terug"           },
 				{ "Azerbaijani" : "Xoş gəlmisiniz"         }
 			],
 			select: function(){
 				return this.translations[Math.floor((Math.random() * this.translations.length) + 1)];
+			},
+			inject: function(keyElement, valueElement){
+				var array = this.select();
+				var keyElementPointer = $(keyElement);
+				var valueElementPointer = $(valueElement);
+				for(var key in array){
+					if(valueElementPointer.length > 0)
+						valueElementPointer.text(array[key]); 
+					if(keyElementPointer.length > 0)
+						keyElementPointer.text("(" + key + ")");
+				}
 			}
 		}
-		var langWelcomBack = langWelcomeBack.select();
-		for(var key in langWelcomBack){
-			$("#welcomeBack").innerHtml(langWelcomBack[key]); 
-		}
+		LanguageRotator.inject("#wbLang", "#welcomeBack");
     </script>
   <!-- /jQuery -->
 
