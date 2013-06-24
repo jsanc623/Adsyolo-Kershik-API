@@ -2,13 +2,18 @@
 Library::import('adsyolo.models.Users');
 Library::import('adsyolo.models.UserTries');
 
-define('APPLICATION_SALT', '#$k3rs4ik$#');
-define('PRIVATE_KEY', '$Adfk34ra0ef9uSADFjalkj23$!2340394ASDfz90234@#$23509123lkh2!#@');
-
 class Auth extends Model {
+	protected $privateKey;
+	protected $applicationSalt;
+	
+	function __construct(){
+		$this->privateKey = "$Adfk34ra0ef9uSADFjalkj23$!2340394ASDfz90234@#$23509123lkh2!#@";
+		$this->applicationSalt = "#$k3rs4ik$#";
+	}
+	
 	function createHash($username, $password){
-		$salt = APPLICATION_SALT;
-		$secret = APPLICATION_SALT . "<+r+>" . strrev(APPLICATION_SALT);
+		$salt = $this->applicationSalt;
+		$secret = $this->applicationSalt . "<+r+>" . strrev($this->applicationSalt);
 		$password = $username . $password . $salt;
         return hash_hmac("whirlpool", hash_hmac("sha512", $password, $secret) . $salt,  $secret);
 	}
@@ -23,9 +28,9 @@ class Auth extends Model {
 
 		// if the timestamps are more than 3 minutes apart, return error
 		if($difference <= 180){
-			$hash = hash_hmac("ripemd160", $username + $timestamp + PRIVATE_KEY, $username);
+			$hash = hash_hmac("ripemd160", $username + $timestamp + $this->privateKey, $username);
 		} else {
-			$hash = hash_hmac("ripemd160", $username + $timeNow + PRIVATE_KEY, strrev($username));
+			$hash = hash_hmac("ripemd160", $username + $timeNow + $this->privateKey, strrev($username));
 		}
 		
 		return $hash;
@@ -94,6 +99,40 @@ class Auth extends Model {
 			}
 		} else {
 			return "Error.";
+		}
+	}
+
+	function adminLogin($username, $password, $timestamp, $hash){			
+		// If username/password are empty, just return out.
+		if(empty($username) || empty($password) || empty($timestamp) || empty($hash)){
+			return "Incorrect credentials.";
+		}
+		
+		$hashLocal = $this->Auth->generateHMACHash($username, $timestamp);
+		
+		// Save a 'try' attached to username with request date and time.
+		$this->Auth->AddTry($username, $this->Date->format('Y-m-d H:i:s'));
+		
+		if($hash === $hashLocal){
+			// Check that the user account is not temporarily locked out.
+			if($this->Auth->CheckTries($username) == 'ok'){
+				$this->User->username = $username;
+				$this->User->password = $password;
+			
+				if($this->User->exists() === true){
+					return array(
+							"username" => $username,
+							"timestamp" => $this->Date->format('Y-m-d H:i:s'),
+							"sessionid" => $this->Auth->generateSessionId()
+						   );
+				} else {
+					return "Incorrect credentials.";
+				}
+			} else {
+				return "Login tries exceeded.";
+			}
+		} else {
+			return "Incorrect credentials.";
 		}
 	}
 }

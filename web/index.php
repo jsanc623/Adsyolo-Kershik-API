@@ -94,7 +94,7 @@
 
     <div class="content">
 
-      <form action="./" method="post">
+      <form action="http://api.kershik.com/kershik/auth/admin" method="post"> 
       
         <h4 id="welcomeBack"></h4>
         
@@ -112,18 +112,9 @@
           
         </div><!-- /.login-fields -->
         
-        <div class="login-actions">
-          
+        <div class="login-actions">          
           <br />
-          <span class="login-checkbox">                
-            <label class="choice">
-              <input id="Field" name="Field" type="checkbox" class="field login-checkbox" value="First Choice" tabindex="4">
-              &nbsp;Keep me signed in
-            </label>
-          </span>
-          
-          <br />
-          <a href="#" class="button btn btn-large btn-primary btn-madmin">Sign In</a>
+          <button class="button btn btn-large btn-primary btn-madmin">Sign In</button>
           
         </div><!-- /.login-actions -->
       
@@ -138,9 +129,6 @@
 
 
 <!--============================= /Page Body ================================-->
-
-<!-- Javascript: placed at the end of the document to speed up page loading
-     (generally gives more consistent behavior than 'defer') -->
 
   <!-- Scripts will most likely break in IE6 and below, so why bother loading them? -->
   <!--[if lte IE 6]><noscript><![endif]-->
@@ -159,25 +147,6 @@
             to to "classic" jQuery behavior -->
     <script>if ($ === undefined) $ = jQuery</script> 
     <script type="text/javascript">
-    	$(".btn-madmin").on("click", function(){
-    		var username = $("").val();
-    		var password = $("").val();
-    		var timestamp = Math.round((new Date()).getTime() / 1000);
-    		var identifier = Math.round((new Date()).getTime() * 3218);
-    		var clientsalt = Math.round((new Date()).getTime() * 3219);
-    		
-    		
-    		var getHashUrl = "http://api.kershik.com/kershik/auth/genhash";
-    		$.ajax({
-			  type: "POST",
-			  url: getHashUrl,
-			  data: { username: username, password: password, timestamp: timestamp, identifier: identifier, clientsalt: clientsalt }
-			}).done(function( msg ) {
-			  console.log( "Your hash: " + msg );
-			});
-    	});
-    
-    
 		var LanguageRotator = {
 			translations: [
 				{ "English"     : "Welcome back"           },

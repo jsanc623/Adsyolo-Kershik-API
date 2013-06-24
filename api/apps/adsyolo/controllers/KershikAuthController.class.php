@@ -5,7 +5,6 @@ Library::import('adsyolo.models.Users');
 
 /**
  * !RespondsWith Json
- * !Prefix Routes: /auth
  */
 class KershikAuthController extends Controller {
 	/** @var Date */
@@ -110,12 +109,28 @@ class KershikAuthController extends Controller {
 	}
 	
 	/**
-	 * !Route POST, /auth/genhash
+	 * !Route GET, /auth/genhash/$username/$timestamp/$identifier/$password/$clientsalt
 	 */
-	function getHash(){
-		$username = $_POST['username'];
-		$password = $_POST['password'];
+	function getHash($username, $timestamp, $identifier, $password, $clientsalt){
+		$this->Auth->AddTry($username, $this->Date->format('Y-m-d H:i:s'));
 		$this->hash = $this->Auth->createHash($username, $password);
+	}
+	
+	/**
+	 * !Route POST, /auth/admin/
+	 */
+	function loginAdmin(){
+		die("a");
+		$username = $this->request->post['username'];
+		$password = $this->request->post['password'];
+		$timestamp = $this->Date->format('Y-m-d H:i:s');		
+		$hashUser = hash_hmac("ripemd160", $username + $timestamp + $this->Auth->privateKey, $username);
+
+		$stat = $this->Auth->adminLogin($username, $password, $timestamp, $hashUser);
+		
+		$this->ss = $stat;
+
+		$this->redirect("http://kershik.com/home.php");
 	}
 }
 ?>
