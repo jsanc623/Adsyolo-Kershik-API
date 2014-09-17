@@ -1,3 +1,6 @@
+INACTIVE POC
+===================
+
 AdsYolo-Kershik-API
 ===================
 
